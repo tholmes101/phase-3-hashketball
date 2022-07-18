@@ -127,3 +127,53 @@ def game_hash
 end
 
 # Write code here
+def all_players
+  game_hash[:home][:players] + game_hash[:away][:players]
+end
+
+def find_player(name)
+  all_players.find{|player| player[:player_name] == name }
+end
+
+def num_points_scored(name)
+ find_player(name)[:points]
+end
+
+def shoe_size(name)
+  find_player(name)[:shoe]
+end
+
+def player_stats(name)
+  find_player(name)
+end
+
+def find_team(team_name)
+  team = game_hash.find do |team|
+    team[1][:team_name] == team_name
+  end
+  team[1]
+end
+
+def team_colors(team_name)
+  find_team(team_name)[:colors]
+end
+
+def team_names
+  [game_hash[:away][:team_name], game_hash[:home][:team_name]]
+end
+
+def player_numbers(team_name)
+  find_team(team_name)[:players].collect{ |player| player[:number]}
+end
+
+def big_shoe_rebounds
+  size = 0
+  return_player = {}
+  all_players.each { |player|
+  if player[:shoe] > size
+    size = player[:shoe]
+    return_player = player
+  end
+  }
+return_player[:rebounds]
+end
